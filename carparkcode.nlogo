@@ -789,41 +789,75 @@ NIL
 1
 
 @#$#@#$#@
-## WHAT IS IT?
+# Traffic Simulation
 
-(a general understanding of what the model is trying to show or explain)
+## Interface
+### Interface Elements
 
-## HOW IT WORKS
+#### Time
+By defualt the simualtion uses a minuet to tick ration of 1:20
+This is by no mean the only conversion that can be used but a user must ensure all values are scaled appropriatly when changing the ratio.
 
-(what rules the agents use to create the overall behavior of the model)
+#### Slow Mode
+Slow mode is intended to be used to trouble shoot simualtions, it adds a 0.1 second delay to every tick so a user can see what agents are doing clearly.
 
-## HOW TO USE IT
+#### Random Spawning
+When deactivated there is no random spawning within the simulation. Turtles can be spawned manually using the 'single spawn' button.
 
-(how to use the model, including a description of each of the items in the Interface tab)
+#### Free Parking
+When toggled on agents consider parking next to a ticket machine desireable a quality.
 
-## THINGS TO NOTICE
+### Simulation
+#### Turtle colour
+Turtle colours indicate the phase of the stay for the agent. Blue indicates cars are searching to park, yellow indicates having parked, red indicates parked cars wating to leave
+#### Patch Colours
+Yellow patches indicate spaces and grey indicate the road. The red patch indactes the gate, blue the ticket machines. Green patches can be used to block out spaces.
 
-(suggested things for the user to notice while running the model)
+#### Gate
+The red gate patch is where agents queue to enter the car park. The amount of agents on this patch can be seen in a monitor in the interface.
 
-## THINGS TO TRY
+## Internals
 
-(suggested things for the user to try to do (move sliders, switches, etc.) with the model)
+### Distribution Data
+Agent spawn rate is controlled via a poission random variable, poission mean can be manipulated via the sliders in the GUI.
 
-## EXTENDING THE MODEL
+Agents intended duration to stay in the carpark. intended stays are ramdomised but based on a normal distribution of which its mean and SD can be controlled in the GUI.
 
-(suggested things to add or change in the Code tab to make the model more complicated, detailed, accurate, etc.)
+### Parking Behaviour
 
-## NETLOGO FEATURES
+The following properties dictate parking behaviour
 
-(interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
+* Distance from ticket machine
+* Distance from enterance
+* Occupancy & Size (how many adjacent bays are filled)
+* Space Scarcity
 
-## RELATED MODELS
+The way these attributes contribute to the decison to park can be seen in the control staments in the park? function.
 
-(models in the NetLogo Models Library and elsewhere which are of related interest)
+## Data Export
+The export data function will export the following data values for every turtle to a file names data.CSV established in the same directory.
 
-## CREDITS AND REFERENCES
+* LeaveTimes
+* ParkTimes
+* age
+* ID
+* entDist (distance from entrance)
+* tickDist (distance from ticket machine)
+* occupancy
+* gender
+* sides
+* size
 
-(a reference to the model's URL on the web if it has one, as well as any other necessary credits, citations, and links)
+It also reports the Poisson mean and Normal mean and SD
+
+This function breaks down is simualtions in behaviour space are ran in parallel. If running this function in final commands in behaviour space set simulationus paralell runs to 1
+
+## World Edit
+When the simualtion is paused, actiavting 'edit layout' will allow a user to chnage the layout of the carpark. Different patch type can be chose through the drop down menu.
+
+Entrance  
+
+World edit function can cause issue with turtle behaviour. Remember that turtles can only navigate a one-way system. Roads that have several options for turtles will produce errors or lead to redundancy in layouts.
 @#$#@#$#@
 default
 true

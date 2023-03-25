@@ -356,6 +356,7 @@ to worldEdit
         set pcolor yellow
         set plabel ""
       ]
+      ask turtles-on patch mouse-xcor mouse-ycor [die]
       ]
 
     if edit = "Block"[
@@ -363,6 +364,7 @@ to worldEdit
         set pcolor green
         set plabel ""
       ]
+      ask turtles-on patch mouse-xcor mouse-ycor [die]
       ]
 
 
@@ -371,6 +373,7 @@ to worldEdit
         set pcolor grey
         set plabel ""
         ]
+      ask turtles-on patch mouse-xcor mouse-ycor [die]
       ]
 
   ]

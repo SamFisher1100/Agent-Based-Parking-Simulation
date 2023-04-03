@@ -10,7 +10,7 @@ turtles-own[
   time2leave    ;stores the time the turtle took to leave after parking
   age
   occupancy
-  gender
+  RiskProfile
   entDist       ;stores distane from entrance
   tickDist      ;stores distane from nearest ticket machine
   spacex        ;stores xcor of space
@@ -35,7 +35,7 @@ globals [
   noTurtles
   exportData
   agesCol
-  genderList
+  RiskProfileList
   occupancyList
   siseList
   remainingSpace
@@ -47,7 +47,7 @@ globals [
   tickDistList
   entDistList
   sidesList
-  genderListX
+  RiskProfileListX
   sizeList
   agesW
 
@@ -116,11 +116,11 @@ to spawn
     set ycor -1
     set color blue
     set passed? false
-    set gender one-of genderList
+    set RiskProfile one-of RiskProfileList
     set occupancy one-of occupancyList
     set label occupancy
-    if gender = "male" [set label-color blue]
-    if gender = "female"[set label-color pink]
+    if RiskProfile = "seeking" [set label-color blue]
+    if RiskProfile = "adverse"[set label-color pink]
     set lastx [pxcor] of patch-here
     set lasty [pycor] of patch-here
     set heading 90
@@ -187,18 +187,18 @@ to park?
 
       if remainingSpace < 0.1 * count patches with [pcolor = yellow][commencePark]
 
-      if gender = "male" and (sum [remainingSpaceTik] of patches < 0.2 or passed? = true) [
+      if RiskProfile = "seeking" and (sum [remainingSpaceTik] of patches < 0.2 or passed? = true) [
       if remainingSpace < 0.1 * count patches with [pcolor = yellow][commencePark]
-      if gender = "male" and entDist < 10 [commencePark]
+      if RiskProfile = "seeking" and entDist < 10 [commencePark]
       if sides <= 1 [commencePark]
       if sides = 2 and (size = 0.75 or occupancy < 2) [commencePark]
     ]
-      if gender = "male" and (tickDist <= 4 or entDist < 3) and freeParking = false[commencePark]
-      if gender = "male" and [pycor] of patch-here  <= -6 and sum [remainingSpaceTik] of patches = 0 [commencePark]
-      if gender = "female" [
+      if RiskProfile = "seeking" and (tickDist <= 4 or entDist < 3) and freeParking = false[commencePark]
+      if RiskProfile = "seeking" and [pycor] of patch-here  <= -6 and sum [remainingSpaceTik] of patches = 0 [commencePark]
+      if RiskProfile = "adverse" [
 
         if remainingSpace < 0.1 * count patches with [pcolor = yellow][commencePark]
-        if gender = "male" and entDist < 10 [commencePark]
+        if RiskProfile = "seeking" and entDist < 10 [commencePark]
         if sides <= 1 [commencePark]
         if sides = 2 and (size = 0.75 or occupancy < 2) [commencePark]
     ]
@@ -267,7 +267,7 @@ to leave?
     set tickDistList fput tickDist tickDistList
     set entDistList fput entDist entDistList
     set occupancyListX fput occupancy occupancyListX
-    set genderListX fput gender genderListX
+    set RiskProfileListX fput RiskProfile RiskProfileListX
     set sidesList fput sides sidesList
     set sizeList fput size sizeList
     die
@@ -285,7 +285,7 @@ to merge
   set tickDistList fput "tickDist" tickDistList
   set entDistList fput "entDist" entDistList
   set occupancyListX fput "occupancy" occupancyListX
-  set genderListX fput "gender" genderListX
+  set RiskProfileListX fput "RiskProfile" RiskProfileListX
   set sidesList fput "sides" sidesList
   set sizeList fput "size" sizeList
 
@@ -303,7 +303,7 @@ to merge
   set exportData lput entDistList exportData
   set exportData lput tickDistList exportData
   set exportData lput occupancyListX exportData
-  set exportData lput genderListX exportData
+  set exportData lput RiskProfileListX exportData
   set exportData lput sidesList exportData
   set exportData lput sizeList exportData
 
@@ -394,13 +394,13 @@ to loadAttributes
   set agesW []
   set agesCol []
   set exportdata []
-  set genderList (list "male" "female")
+  set RiskProfileList (list "seeking" "adverse")
   set occupancyList (list 1 2 3 4)
   set siseList (List 0 1)
   set tickDistList []
   set entDistList []
   set sidesList []
-  set genderListX []
+  set RiskProfileListX []
   set occupancyListX []
   set sizeList []
 end
@@ -636,7 +636,7 @@ SWITCH
 143
 slowMode
 slowMode
-1
+0
 1
 -1000
 
@@ -749,7 +749,7 @@ SWITCH
 238
 FreeParking
 FreeParking
-0
+1
 1
 -1000
 
@@ -853,7 +853,7 @@ The export data function will export the following data values for every turtle 
 * `entDist` (distance from entrance)
 * `tickDist` (distance from ticket machine)
 * `occupancy`
-* `gender`
+* `RiskProfile`
 * `sides`
 * `size`
 

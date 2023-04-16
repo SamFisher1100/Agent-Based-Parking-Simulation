@@ -798,37 +798,37 @@ NIL
 
 ### Setup and Control
 #### Starting The Simulation
-To begin the simulation press reset then start to commence simulation. Pressing reset again will wipe all data stored in the model.
+To begin the simulation press reset then start to commence the simulation. Pressing reset again will wipe all data stored in the model.
 
 #### Time
-By default, the simulation uses a minuet to tick ration of 1:20
-This is by no mean the only conversion that can be used but a user must ensure all values are scaled appropriately when changing the ratio.
+By default, the simulation uses a minuet to tick ratio of 1:20
+This is by no means the only conversion that can be used but a user must ensure all values are scaled appropriately when changing the ratio.
 ### Interface Elements
 
 #### Slow Mode
-Slow mode is intended to be used to trouble shoot simulations, it adds a 0.1 second delay to every tick so a user can see what agents are doing clearly.
+Slow mode is intended to be used to troubleshoot simulations, it adds a 0.1 second delay to every tick so a user can see what agents are doing clearly.
 
 #### Random Spawning
 When deactivated there is no random spawning within the simulation. Turtles can be spawned manually using the 'single spawn' button.
 
 #### Free Parking
-When toggled on agents consider parking next to a ticket machine desirable a quality.
+When toggled on agents consider parking next to a ticket machine desirable quality.
 
 ### Simulation
 #### Turtle colour
-Turtle colours indicate the phase of the stay for the agent. Blue indicates cars are searching to park, yellow indicates having parked, red indicates parked cars wating to leave
+Turtle colours indicate the phase of the stay for the agent. Blue indicates cars are searching to park, yellow indicates having parked, and red indicates parked cars waiting to leave
 #### Patch Colours
-Yellow patches indicate spaces and grey indicate the road. The red patch indicates the gate, blue the ticket machines. Green patches can be used to block out spaces.
+Yellow patches indicate spaces and grey indicates the road. The red patch indicates the gate, blue the ticket machines. Green patches can be used to block out spaces.
 
 #### Gate
-The red gate patch is where agents queue to enter the car park. The amount of agents on this patch can be seen in a monitor in the interface.
+The red gate patch is where agents queue to enter the car park. The number of agents on this patch can be seen on a monitor in the interface.
 
 ## Internals
 
 ### Distribution Data
-Agent spawn rate is controlled via a position random variable, Poission mean can be manipulated via the sliders in the GUI.
+Agent spawn rate is controlled via a position random variable, Poisson mean can be manipulated via the sliders in the GUI.
 
-Agents intended duration to stay in the carpark. intended stays are randomised but based on a normal distribution of which its mean and SD can be controlled in the GUI.
+Agents intended duration to stay in the car park. intended stays are randomised but based on a normal distribution of which its mean and SD can be controlled in the GUI.
 
 ### Parking Behaviour
 
@@ -839,12 +839,12 @@ The following properties dictate parking behaviour.
 * Occupancy & Size (how many adjacent bays are filled)
 * Space Scarcity
 
-The way these attributes contribute to the decision to park can be seen in the control statements in the park? function.
+The way these attributes contribute to the decision to park can be seen in the control statements in the 'park?' function.
 
 ## Data Export
 **Please Note: data export functionality is unavailable within browser simulations**
 
-The export data function will export the following data values for every turtle to a file names data.CSV established in the same directory.
+The export data function will export the following data values for every turtle to a file named data.CSV established in the same directory.
 
 * `LeaveTimes`
 * `ParkTimes`
@@ -853,20 +853,20 @@ The export data function will export the following data values for every turtle 
 * `entDist` (distance from entrance)
 * `tickDist` (distance from ticket machine)
 * `occupancy`
-* `RiskProfile`
+* `gender`
 * `sides`
 * `size`
 
-It also reports the Poisson mean and Normal mean and SD.
+It also reports the Poisson mean, Gaussian mean and standard deviation.
 
-This function breaks down if simulations are ran in parallel in behaviour space. If running this function in final commands within behaviour space set, simultaneous parallel runs to 1.
+This function breaks down if simulations are run in parallel in behaviour space. If running this function in final commands within the behaviour space set, simultaneous parallel runs to 1.
 
 ## World Edit
-Activating 'edit layout' will allow a user to change the layout of the carpark. Different patch type can be chose through the drop down menu.
+Activating 'edit layout' will allow a user to change the layout of the car park. Different patch types can be chosen through the drop-down menu.
 
-The environment can be edited in real time but a user should be wary of the logic errors this can cause.
+The environment can be edited in real-time but a user should be wary of the logic errors this can cause.
 
-World edit function can cause issue with turtle behaviour. Remember that turtles can only navigate a one-way system. Roads that have several options for turtles will produce logic errors or lead to redundancy in layouts.
+The world edit function can cause an issue with turtle behaviour. Remember that turtles can only navigate a one-way system. Roads that have several options for turtles will produce logic errors or lead to redundancy in layouts.
 @#$#@#$#@
 default
 true
